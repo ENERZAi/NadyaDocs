@@ -15,7 +15,7 @@ For example,
 let src = tensor((2,3), {1,2,3,4,5,6})
 let loadedScalar = src[(1,2)] // Scalar value (6)
 let loadedTensor1 = src[(0, 0:3:1)] // tensor shaped (3,). First dimension as been squeezed out
-let loadedTensor2 = src[(0:1:1, 0:3:1)] // tensor shaped (1,3). First dimensio is alive since it was given as range
+let loadedTensor2 = src[(0:1:1, 0:3:1)] // tensor shaped (1,3). First dimension is alive since it was given as range
 </code-block>
 
 ### Tensor store
@@ -45,7 +45,7 @@ Case 2 and Case 3 shows such examples.
 source tensor shape of (2,) while store region of destination tensor has shape of (2,1) and (1,2) each. They are both compatible since source tensor and store region has shape of (2,) when squeezed.
 Same holds with variation of source shape.
 
-__Storing without range__
+#### Storing without specifying range
 
 Tensors can be stored directly without range or index. 
 In this case, interpreter expects source and destination shapes to be identical (same rank, same dimensions).

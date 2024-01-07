@@ -19,52 +19,56 @@ root
 
 where solve1.opus and solve2.opus implements two different kinds of algorithm for solving LIS problem
 ### Code files
-#### solve1.opus {collapsible="true"}
-<code-block lang='c#'>
+
+__solve1.opus__
+```c#
+// Solve1.opus
+module core.Math.Utils as utils
+
 let mut dp = tensor((1010,), 0i)
-let max left right = 
-    if(left > right)
-        left
-    else
-        right
+
 // Solves LIS problem with O(N^2) algorithm
 let solve n input =
     for (i from 0 to n) {
-		dp[(i,)] &lt;- 1
+		dp[(i,)] <- 1
 		for (j from 0 to i) {
-			if (input[(j,)] &lt; input[(i,)])
-				dp[(i,)] &lt;- max &lt;| dp[(i,)] &lt;| (dp[(j,)] + 1)
+			if (input[(j,)] < input[(i,)])
+				dp[(i,)] <- utils.max <| dp[(i,)] <| (dp[(j,)] + 1)
 			else
 				_end_
 		}
 	}
 	let mut ans = 0
 	for (i from 0 to n) {
-		ans &lt;- max &lt;| ans &lt;| dp[(i,)]
+		ans <- utils.max <| ans <| dp[(i,)]
 	}
 	ans
 _end_
-</code-block>
+```
+{ collapsible="true" collapsed-title="solve1.opus" }
 
-#### solve2.opus {collapsible="true"}
-<code-block lang='c#'>
-// Import 'bisect' which implements 'lowerBound'
-module core.Algorithm.Bisect as bisect
+__solve2.opus__
+```c#
+//Solve2.opus
+module core.Algorithm.Bisect as bisect // Import 'bisect' which implements 'lowerBound'
+
 // Set infinite number
 let infinite = 2147483647
 // Initialize tensor with infinite value
 // This dp tensor will contain last value of LIS with length 'idx'
 let mut dp = tensor((1010,), infinite)
-// Solve LIS problem with O(n*log(n)) algorithm where 'n' is the length of the sequence
+
+// Closure that solves LIS problem with O(n*log(n)) algorithm where 'n' is the length of the sequence
 let solve n input =
 	for (i from 0 to n) {
         let idx = bisect.lowerBound dp (input[(i,)])
         if (dp[(idx,)] > input[(i,)])
-            dp[(idx,)] &lt;- input[(i,)]
+            dp[(idx,)] <- input[(i,)]
             _end_
         else
             _end_
 	}
+	
     // Find index of the infinite value. This value becomes length of the sequence
     let rec findInf idx =
         if (dp[(idx,)] >= infinite)
@@ -73,8 +77,8 @@ let solve n input =
             findInf (idx + 1)
     findInf 0
     _end_
-
-</code-block>
+```
+{collapsible="true" collapsed-title="solve2.opus"}
 
 #### main.opus {collapsible="true"}
 <code-block lang='c#'>
