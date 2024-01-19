@@ -8,6 +8,7 @@
 
     <toc-element topic="Introduction.md"><![CDATA[
         ]]>
+        <toc-element topic="Executable.md"/>
         <toc-element topic="Basics.md"/>
         <toc-element topic="Load-Store-rules.md"/>
         <toc-element topic="Project-configuration.md"/>
