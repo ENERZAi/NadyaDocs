@@ -186,15 +186,14 @@ as target, you **never get any runtime code or function**, because the function 
 You can make a caller in command line.
 
 ```Shell
-opusc-example2$ opusc -t target.opus -o target.so -f \
+opusc-example2$ opusc -t target.opus -o target.so --function \
                 externFunc -a "{\"50\"}" --object=shared
-# -f is alias for --function. 
 # This option takes a name of function.
 
 # -a is alias for --template-arguments. 
 # This option takes template arguments of -f option.
 
-# -a option needs -f
+# -a option needs --function
 ```
 
 Now we can find function `target_50` in `target.so` created by above command.
@@ -255,18 +254,122 @@ $ opusc -i main.opus -o main_aarch64.so --triple=aarch64-unknown-linux-gnu \
 
 ### Command line options
 
-- `--input, -i <file>`: input file (for single file compilation)
-- `--output, -o <file>` : output file or dir
-- `--target, -t <file>` : target file (for target compilation)
-- `--workspace, -w <file>` : workspace directory
-- `--function, -f <function name>` : specify function name for target compilation
-- `--template-arguments, -a <values>` : template arguments
-- `-g, --O1, --O2, --O3` : optimization level
-- `--lowering-level=<level>` : lowering
-  level ( `compiletime`, `runtime`, `opus-dialect`, `llvm-dialect`, `llvmir`, `object`, `final` -> default)
-- `--object` : object type (`shared` : shared library, `static` : static library, `executable` : executable file ->
-  default). This option is only for `--lowering-level=final`
+#### General Options
+
+- `--version`
+
+  Print version of `opusc`.
+
+- `--help, -h`
+
+  Print command line options.
+
+- `--input, -i <file>`
+
+  Input file (for single file compilation).
+
+- `--output, -o <file>`
+
+  Output file or dir.
+
+- `--target, -t <file>`
+
+  target file (for target compilation).
+
+- `--workspace, -w <file>`
+
+  workspace directory.
+
+- `--function <function name>`
+
+  specify function name for target compilation
+
+- `--template-arguments, -a <values>`
+
+  Template arguments for `--function`
+
+- `--lowering-level=<level>`
+
+  Lowering level ( `compiletime`, `runtime`, `opus-dialect`, `llvm-dialect`, `llvmir`, `object`, `final` -> default)
+  This option
+  is only for `--lowering-level=final`
+
+- `--ll <uint>`
+
+  Alias for lowering
+  level. (`0=compiletime`, `1=runtime`, `2=opus-dialect`, `3=llvm-dialect`, `4=llvmir`, `5=object`, `6=final`)
+
+- `--object`
+
+  Object type (`shared` : shared library, `static` : static library, `executable` : executable file). This options
+  needs `--lowering-level=final` or `--ll=6`, if not, this option will be ignored.
+
+- `--print-log=<value>`
+
+  Print internal task and execution of `opusc`. If `value` were `stderr/stdout`, print log to stderr/stdout, or not,
+  print to `<value>` file.
+
+- `--verbose, -v`
+
+  Alias for `--print-log=stderr`.
+
+- `-l<library>`
+
+  External libraries for link.
+
+- `-L<dir>`
+
+  Add directories which libraries are exists.
+
+- `-g, --O1, --O2, --O3`
+
+  Optimization level
+
+- `-fuse-ld=<linker>`
+
+  Choose linker
+
+- `-fopenmp`, `-fno-openmp`
+
+  Enable parallel compilation and link with `libomp`. This option requires `libomp.so` in library paths. You can add
+  paths by using option `-L<dir>`.
+
+- `-fopt-vector-size=<uint>`
+
+  Make `opus-opt` vectorize to size `<uint>`. This priority is higher than `--cpu` or x86 instruction options
+  like `-mavx512f`, `-mavx`, etc... .
+
+- `fopt-stack-threshold=<uint>`
+
+  Make `opus-opt` change stack threshold size to `<uint>`
+
+- `fopt-full-pass="<pass1> <pass2> ..."`
+
+  Ignore default `opus-opt` pass and replace to given pass.
+
+- `-fpic`, `-fPIC`
+
+  Choose reallocation model
+
+#### Pass Options
+
+- `WClang,<arg1>,<arg2>,...` : Pass options to clang internally. `opusc` doesn't check any problem in the arguments.
+- `WLinker,<arg1>,<arg2>,...` : Pass options to linker internally. `opusc` doesn't check any problem in the arguments.
+
+#### Target option
+
 - `--triple=<value>` : target triple for cross compilation
-- `--fuse-ld=<linker>` : choose linker
-- `--cpu=<value>` : target cpu. For a list of avaiable CPUs for the target use "--cpu=help"
-- `--print-log=<value>` : print log. (`stderr`, `stdout`, `file path`)
+- `--cpu=<value>` : target cpu. For a list of available CPUs for the target use "--cpu=help"
+
+- Instruction sets for x86 cpu
+    - `-mavx`
+    - `-mavx2`
+    - `-mavx512f`
+    - `-mavx512dq`
+    - `-mavx512ifma`
+    - `-mfma`
+    - `-msse2`
+    - `-msse3`
+    - `-mssse3`
+    - `-msse4.1`
+    - `-msse4.2`
