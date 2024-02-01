@@ -334,7 +334,7 @@ $ opusc -i main.opus -o main_aarch64.so --triple=aarch64-unknown-linux-gnu \
   Enable parallel compilation and link with `libomp`. This option requires `libomp.so` in library paths. You can add
   paths by using option `-L<dir>`.
 
-- `-fopt-vector-size=<uint>`
+- `-fopt-vectorize-size=<uint>`
 
   Make `opus-opt` vectorize to size `<uint>`. This priority is higher than `--cpu` or x86 instruction options
   like `-mavx512f`, `-mavx`, etc... .
