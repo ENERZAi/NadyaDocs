@@ -1,6 +1,19 @@
 # Cross compilation
 
-We will compile below single file to target triple.
+`opusc` is a compiler binary for `opus` language. You can create a binary or library files by using `opusc`.
+Internally, `opusc` use other opus binaries and `clang`, so they are must be installed before use `opusc`.
+
+## Cross-platform compilation
+
+For cross-platform compilation, you need `target triple` (and `lld` if you need). `target triple` has the general
+format `<arch>-<sub>-<vender>-<sys>-<env>`. More details are
+available [here](https://clang.llvm.org/docs/CrossCompilation.html).
+
+Below file is a single opus file `main.opus`, and we'll compile it to `aarch64-unknown-linux-gnu`.
+
+Default linker (usually `ld`) usually doesn't support emulating various architectures, so we will use `lld` in this
+case. You can easily install this
+binary by package managers(`apt`, `dnf`, etc ...) or build `LLVM`.
 
 ```C#
 // main.opus
@@ -149,4 +162,35 @@ compiler just manipulation fp16 tricky, so very slow)
 
 Now, we can execute the `test.out` in `cortex-a77` device. However, this `elf` file has `fp16` instructions so, not
 every device can execute this file.
+
+## aarch64 android
+
+It is almost same as aarch64, but we need to specify the clang which is built for android cross compilation.
+
+We'll compile `main.opus` for `aarch64-unknown-linux-android34`. (`-march`, `-mcpu` also usable but skip in this case.)
+
+```Shell
+~/test $ docker run -it --rm -v $(pwd):/app/cross ubuntu:22.04
+...
+/app/cross# apt update
+/app/cross# apt install libgcc-12-dev-arm64-cross
+/app/cross# apt install wget software-properties-common unzip -y && \
+            wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc && \
+            add-apt-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-17 main"
+/app/cross# apt install ./opus_0.1.0.deb -y
+# install opus, clang, lld, mlir-tools ...etc
+
+# android ndk download
+/app/# wget https://dl.google.com/android/repository/android-ndk-r26b-linux.zip
+/app/# unzip android-ndk-r26b-linux.zip 
+/app/# export NDK_PATH=$(pwd)/android-ndk-r26b
+```
+
+```Shell
+/app/cross# opusc test.opus -o test.out --triple=aarch64-unknown-linux-android34 \
+            -mandroid-clang=$NDK_PATH/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android34-clang++
+```
+
+If you want to compile for another architecture or android version, you need to select the clang which is built for
+appropriate architecture or version. Now you can execute `test.out` in android device.
 

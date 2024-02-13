@@ -45,7 +45,7 @@ let c = [!{2}, !{1u32}]
 #### 1. unknown reference `__extendhfsf2` `__truncsfhf2`
 
 These functions are from `libgcc.a`, but if the version is too low, it may not be implemented. Upgrade libgcc version or
-use clang-rt by option `--rtlib=clang-rt`.
+use clang-rt by option `--rtlib=compiler-rt`.
 
 ### ARM target
 

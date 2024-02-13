@@ -67,7 +67,7 @@
 
 - `--verbose, -v`
 
-  Alias for `--print-log=stdout`.
+  Alias for `--print-log=stderr`.
 
 - `-l<library>`
 
@@ -106,6 +106,10 @@
 - `-fpic`, `-fPIC`
 
   Choose reallocation model
+
+- `-fopci-path=<path to opci>`, `-fopus-opt-path=<path to opus-opt>`, `-fmlir-translate-path=<path to mlir-translate>`, `-fclang-path=<path to clang>`
+
+  Choose tools explicitly
 
 ## Direct Options
 
@@ -234,3 +238,10 @@
 
   `fp16`, `simd`, `crypto`, `nocrypto`, `nofp`
 
+  #### Options for android
+
+    - `mandroid-clang=<path to clang>`
+
+  For android target, `opusc` requires clang which is built for android cross compilation and usually offered in
+  [**Android NDK** packages](https://developer.android.com/ndk?hl=ko). Also, you can use `-fclang-path=<path to clang>`
+  instead of this option, but `opusc` can't guarantee that there are not problem.  
