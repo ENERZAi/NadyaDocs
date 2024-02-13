@@ -44,7 +44,7 @@ is recommended to prepare using a docker, qemu and `apt` package manager.
 We can install some cross compile library by using package manager simply. For `opusc` we need
 only `libgcc-{version}-dev-{platform}-cross` and easily install by using `apt` package manager.
 
-## X86_64
+## x86_64
 
 For example, we'll compile the single opus file to `x86_64-unknown-linux-gnu` and `znver4` (amd zen4 architecture). We
 need some tools and options for this compilation.
@@ -188,7 +188,7 @@ We'll compile `main.opus` for `aarch64-unknown-linux-android34`. (`-march`, `-mc
 
 ```Shell
 /app/cross# opusc test.opus -o test.out --triple=aarch64-unknown-linux-android34 \
-            -mandroid-clang=$NDK_PATH/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android34-clang++
+            -mandroid-clang=$NDK_PATH/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android34-clang
 ```
 
 If you want to compile for another architecture or android version, you need to select the clang which is built for
