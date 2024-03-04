@@ -1,6 +1,6 @@
-# Introduction to Opus
+# Introduction to Nadya
 
-Opus is the language for writing HPC applications quick and easy, 
+Nadya is the language for writing high performance applications quick and easy, 
 without knowing too much about hardware optimization techniques.
 
 Its was primarily designed to write ML layers in easy & extensible way. However,
@@ -12,7 +12,7 @@ __Design purposes__
 3. Intelligent optimization pipeline
 4. Fully customizable
 
-### Why Opus?
+### Why Nadya?
 __Functional-style programming pattern__
 
 Functional programming has many advantages.
@@ -41,8 +41,8 @@ let output =
 
 __Straight forward arithmetic operations__
 
-Opus has built-in support for tensor arithmetics, with broadcasting semantics
-Opus will generate fast code automatically for every cases
+Nadya has built-in support for tensor arithmetics, with broadcasting semantics
+Nadya will generate fast code automatically for every cases
 <tabs>
     <tab title="Easy tensor arithmetics">
         <code-block lang="c#">

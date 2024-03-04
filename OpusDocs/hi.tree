@@ -7,6 +7,7 @@
                   start-page="Introduction.md">
 
     <toc-element topic="Introduction.md">
+        <toc-element topic="Recommended-conding-conventions.md"/>
         <toc-element topic="Executable.md">
             <toc-element topic="Opusc.md">
                 <toc-element topic="Opusc-Example.md"></toc-element>
@@ -14,12 +15,35 @@
                 <toc-element topic="Opusc-Cross-Compilation.md"></toc-element>
             </toc-element>
         </toc-element>
+        <toc-element topic="Expression-semantics.md">
+            <toc-element topic="Type-expressions.md"/>
+            <toc-element topic="Type-system.md"/>
+            <toc-element topic="Compiler-builtins.md"/>
+            <toc-element topic="Tensors.md"/>
+            <toc-element topic="Structs.md"/>
+            <toc-element topic="References.md"/>
+            <toc-element topic="Attributes.md"/>
+            <toc-element topic="Native-functions.md"/>
+            <toc-element topic="Virtual-and-Native-environment.md"/>
+            <toc-element topic="First-class-functions.md"/>
+            <toc-element topic="Closures.md"/>
+            <toc-element topic="Match-expressions.md"/>
+            <toc-element topic="Conditionals.md"/>
+            <toc-element topic="Loops.md"/>
+            <toc-element topic="Values.md"/>
+            <toc-element topic="Type-Casting.md"/>
+            <toc-element topic="Literals.md"/>
+            <toc-element topic="Let-bindings.md"/>
+            <toc-element topic="Modules.md"/>
+            <toc-element topic="Union.md"></toc-element>
+        </toc-element>
         <toc-element topic="Basics.md"/>
         <toc-element topic="Load-Store-rules.md"/>
         <toc-element topic="Project-configuration.md"/>
         <toc-element topic="Mutability-and-reference.md"/>
         <toc-element topic="FAQ.md"></toc-element>
     </toc-element>
+    <toc-element topic="Native-code-optimization-guideline.md"/>
     <toc-element topic="Core-Library.md">
         <toc-element topic="List.md"/>
         <toc-element topic="Algorithm.md"/>
