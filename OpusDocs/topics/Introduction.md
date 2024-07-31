@@ -1,22 +1,95 @@
-# Introduction to Opus
+# Nadya
 
-Opus is the language for writing HPC applications quick and easy, 
-without knowing too much about hardware optimization techniques.
+**Nadya** is the programming language for writing high performance applications in quick and easy way.
+Nadya lets programmers write fast and safe programs without knowing details about low level optimizations.
 
-Its was primarily designed to write ML layers in easy & extensible way. However,
-it can also be used for any other general usages.
+Its was primarily designed to write AI computing kernels in easy & extensible way. However,
+we are developing it further to be used for general purpose programming, especially where performance critical
+computations are required.
 
-__Design purposes__
-1. Easy & slow learning curve for starters writing HPC programs
+### Design purpose ###
+1. Easy & soft learning curve for starters writing HPC programs
 2. Complete & stand-alone
 3. Intelligent optimization pipeline
 4. Fully customizable
+5. Memory safety
 
-### Why Opus?
-__Functional-style programming pattern__
+### Why Nadya?
+
+#### Intelligent compiler optimizations
+
+**Builtin support for hardware intrinsics**
+
+Programmer doesn't need  to be aware of specific intrinsics that's dependent on target hardware and platform,
+Nadya gracefully supports them, maximizing capability of target hardware.
+
+<code-block lang="c#">
+let tensorA = tensor((2, 4), 0.0f)
+let tensorB = tensor((1, 4), 1.0f)
+// Results in (2, 4) tensor. Utilizes optimized SIMD operations internally
+// ex) AVX on amd64, Neon or SME for ARM chips
+let sum = tensorA + tensorB
+</code-block>
+
+**Automatic loop optimizations**
+
+Nadya can unroll, parallelize, fuse loops without violating program safety.
+These process can be done automatically, or can be instructed by programmer.
+This takes reduces effort for optimizing the code for specific hardware target.
+
+```c#
+// Nadya compiler can automatically parallelize the loop
+attr [ Parallel : true ]
+for(idx from 0 to 100 step 2){
+    // Loop contents
+}
+```
+
+**Memory optimizations**
+
+Nadya can automatically reduce unnecessary load & stores and other memory operations by aggressively
+removing & optimizing them. This includes automatic in-placing, hoisting memory allocations, and many more.
+Memory load & stores take lots of portion in optimization, and Nadya can help programmers doing so.
+
+**Integrated code generation**
+
+One of the strongest, and unique feature of Nadya is builtin code-generation support.
+Nadya can create its own 'AST' (Abstract syntax tree) and combine them to build new code.
+This allows programmers to write very flexible code that can be adopted in many different scenarios.
+For example, Programmers can make Nadya generate code that uses different set of algorithms depending on 
+situations, such as program inputs and target hardware.
+
+```c#
+
+// Generate code creating default matmul, or tiled matmul depending on input size
+// expression stores generated code by each function
+
+let mut expression = !{0}
+
+if(inputSize < threshold) {
+    expression <- generateDefaultMatmul();
+} else {
+    expression <- generateTiledConv();
+}
+
+// Use generated code for building gemm algorithm
+// !{ code } represents generated code
+//! ${ code } represents instantiation of result into the generated code.
+let gemm = !{ alpha * ${expression} } + beta * bias}
+// ...
+```
+
+#### Memory safety
+
+Nadya is designed to minimize human errors with memory. There is no explicit `malloc` or `free` exposed to programmer.
+Nadya compiler itself looks for suitable location where memory should be freed, and takes care of it
+to prevent memory leaks.
+
+#### Functional-style programming pattern
 
 Functional programming has many advantages.
-It is concise, clear, and prevents mistakes effectively
+It is concise, clear, and prevents mistakes effectively.
+
 <tabs>
     <tab title="Functional">
         <code-block lang="c#">
@@ -39,10 +112,11 @@ let output =
 </tabs>
 
 
-__Straight forward arithmetic operations__
+#### Straight forward arithmetic operations
 
-Opus has built-in support for tensor arithmetics, with broadcasting semantics
-Opus will generate fast code automatically for every cases
+Nadya has built-in support for tensor arithmetics, with integrated broadcasting semantics
+Nadya compiler can effectively optimize them to generate fast code automatically for every case.
+
 <tabs>
     <tab title="Easy tensor arithmetics">
         <code-block lang="c#">
@@ -55,7 +129,7 @@ Opus will generate fast code automatically for every cases
     <tab title="Reference">
         <code-block lang="c#">
         let mut a = tensor((2,3), {1,0f,2,0f,3,0f,4.0f,5.0f,6.0f}) // 32bit floating point tensor shaped (2,3)
-        let ref refA = a
+        let mut refA = &a
         refA[0, 0] &lt;- 3.0f // Modifies both a & refA
         print(a) // prints tensor((2,3), {3,0f,2,0f,3,0f,4.0f,5.0f,6.0f})
         </code-block>
@@ -79,3 +153,23 @@ Opus will generate fast code automatically for every cases
         <a href="https://www.indeed.com/career-advice/career-development/functional-programming-languages">What is functional programming?</a>
     </category>
 </seealso>
+
+### Upcomming features
+
+Nadya is in early-development phase, and new features are being developed added actively.
+We are currently working on many features aiming to build very powerful language.
+Features we are considering to add are as follows.
+
+1. **Methods on structs**
+2. **Type trait system**
+   * Similar to 'Concept' on C++20, programmers can add restrictions or conditions on type
+2. **Smarter optimization algorithm regarding fusion**
+3. **Memory access boundary checking**
+    * If programmer accesses memory out of bounds, and if compiler can detect it, compiler will notify programmer.
+3. **Virtual machine support for running compiled bytecode regardless of target environment or platform**
+4. **Runtime library supporting advanced library functions**
+5. **Debugging & stack unwinding**
+    * In order to improve debugging experience, we are adding stack tracking, and gdb support
+6. **GPU support**
+   * Builtin Support for platforms such as Vulkan & cuda without using new kind of syntax or semantics
+7. **REPL support**

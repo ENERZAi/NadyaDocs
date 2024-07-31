@@ -1,0 +1,3 @@
+# Native code performance tuning guideline
+
+Start typing here...
