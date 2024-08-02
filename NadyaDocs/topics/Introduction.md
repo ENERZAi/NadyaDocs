@@ -158,18 +158,27 @@ Nadya compiler can effectively optimize them to generate fast code automatically
 
 Nadya is in early-development phase, and new features are being developed added actively.
 We are currently working on many features aiming to build very powerful language.
-Features we are considering to add are as follows.
+Expect Nadya getting better and better overtime, with following new features!
 
 1. **Methods on structs**
-2. **Type trait system**
-   * Similar to 'Concept' on C++20, programmers can add restrictions or conditions on type
-2. **Smarter optimization algorithm regarding fusion**
-3. **Memory access boundary checking**
+   * User struct can have methods, that lets programmer to use oop-like patterns
+   * Planned to be supported on version 0.3.x
+2. **Ownership system**
+   * This is one of the feature we're putting our most effort on. This ensures memory safety without using garbage collector (which is bad for performance), and lets programmer seamlessly program in Nadya without worrying about memory leaks.
+   * Planned to be supported on version 0.3.x
+3. **Type trait system**
+   * Similar to 'Concept' on C++20, programmers can add restrictions or conditions on type 
+   * Programmers can provide required implementations expected to be implemented by types inheriting trait (Something similar to an interface in C# or Java)
+   * Planned to be supported from version 0.3.x
+4. **Smarter optimization algorithm regarding fusion**
+   * Fusing tensor operations can reduce useless loops, or control flow hazards which is beneficial for both CPUs and GPUs.
+   * Planned to be supported from version 0.4.x
+5. **Memory access boundary checking**
     * If programmer accesses memory out of bounds, and if compiler can detect it, compiler will notify programmer.
-3. **Virtual machine support for running compiled bytecode regardless of target environment or platform**
-4. **Runtime library supporting advanced library functions**
-5. **Debugging & stack unwinding**
+6. **Virtual machine support for running compiled bytecode regardless of target environment or platform**
+7. **Runtime library supporting advanced library functions**
+   * Planned to be supported from version 0.3.x
+8. **Debugging & stack unwinding**
     * In order to improve debugging experience, we are adding stack tracking, and gdb support
-6. **GPU support**
+9. **GPU support**
    * Builtin Support for platforms such as Vulkan & cuda without using new kind of syntax or semantics
-7. **REPL support**

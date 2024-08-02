@@ -1,12 +1,26 @@
 # Nadya language guide
 
 #### Contents
-1. <a anchor="code-organization">Code organization</a>
-2. <a anchor="literals">Literals</a>
-3. <a anchor="control-flow">Control flow</a>
-4. <a anchor="functions">Functions</a>
-5. <a anchor="unions-pattern-matching">Unions & pattern matching</a>
-6. <a anchor="helper-features">Helper features</a>
+
+1. <a anchor="learning-basic-concepts">Basics</a>
+2. <a anchor="code-organization">Code organization</a>
+3. <a anchor="literals">Literals</a>
+4. <a anchor="control-flow">Control flow</a>
+5. <a anchor="functions">Functions</a>
+6. <a anchor="unions-pattern-matching">Unions & pattern matching</a>
+7. <a anchor="helper-features">Helper features</a>
+
+## Learning basic concepts 
+1. <a href="Basics.md">__Basics__</a>
+
+    This document goes through basic concepts used in Nadya programming language. Before going through rest of the document, It's recommended to read this first to get a brief view how Nadya program can be written and organized.
+2. <a href="ndc.md">__Nadya Optimizing Compiler__</a>
+
+    This document explains how to use Nadya Optimizing Compiler (Named `ndc`) with simple examples. 
+3. <a href="Load-Store-rules.md">__Load & store semantics for tensor__</a>
+
+   __Tensor__ is fundamental building block for writing fast implementations that calculates data. 
+   This document explains how load & store rules are modeled for tensor in Nadya.
 
 ## Code organization
 1. <a href="Modules.md">__Modules__</a>
