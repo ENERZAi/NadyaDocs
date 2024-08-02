@@ -3,7 +3,7 @@
 **Nadya** is the programming language for writing high performance applications in quick and easy way.
 Nadya lets programmers write fast and safe programs without knowing details about low level optimizations.
 
-Its was primarily designed to write AI computing kernels in easy & extensible way. However,
+It was primarily designed to write AI computing kernels in easy & extensible way. However,
 we are developing it further to be used for general purpose programming, especially where performance critical
 computations are required.
 
@@ -154,9 +154,9 @@ Nadya compiler can effectively optimize them to generate fast code automatically
     </category>
 </seealso>
 
-### Upcomming features
+### Upcoming features
 
-Nadya is in early-development phase, and new features are being developed added actively.
+Nadya is in early-development phase, and new features are being developed and added actively.
 We are currently working on many features aiming to build very powerful language.
 Expect Nadya getting better and better overtime, with following new features!
 
