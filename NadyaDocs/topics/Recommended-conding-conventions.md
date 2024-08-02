@@ -1,3 +1,0 @@
-# Recommended conding conventions
-
-Start typing here...
