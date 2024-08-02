@@ -1,28 +1,28 @@
 # Project configuration
 
-This page shows how opus project can be configured by programmer. We will go build opus program that solves
+This page shows how nadya project can be configured by programmer. We will go build nadya program that solves
 <a href="https://www.geeksforgeeks.org/longest-increasing-subsequence-dp-3/">Longest increasing sequence</a> problem. 
-After reading document, you will understand how opus program is structured.
+After reading document, you will understand how nadya program is structured.
 
-Project can be configured with _opus-project.yml_ file.
+Project can be configured with _nadya-project.yml_ file.
 
-Let's assume we have directory structure as follows. opus-project.yml should be always located in project root folder.
+Let's assume we have directory structure as follows. nadya-project.yml should be always located in project root folder.
 
 ```
 root
 ├── solve
-│   ├── solve1.opus   
-│   └── solve2.opus
-├── main.opus
-└── opus_project.yml
+│   ├── solve1.ndy   
+│   └── solve2.ndy
+├── main.ndy
+└── nadya_project.yml
 ```
 
-where solve1.opus and solve2.opus implements two different kinds of algorithm for solving LIS problem
+where solve1.ndy and solve2.ndy implements two different kinds of algorithm for solving LIS problem
 ### Code files
 
-__solve1.opus__
+__solve1.ndy__
 ```c#
-// Solve1.opus
+// Solve1.ndy
 module core.Math.Utils as utils
 
 let mut dp = tensor((1010,), 0i)
@@ -45,11 +45,11 @@ let solve n input =
 	ans
 _end_
 ```
-{ collapsible="true" collapsed-title="solve1.opus" }
+{ collapsible="true" collapsed-title="solve1.ndy" }
 
-__solve2.opus__
+__solve2.ndy__
 ```c#
-//Solve2.opus
+//Solve2.ndy
 module core.Algorithm.Bisect as bisect // Import 'bisect' which implements 'lowerBound'
 
 // Set infinite number
@@ -78,9 +78,9 @@ let solve n input =
     findInf 0
     _end_
 ```
-{collapsible="true" collapsed-title="solve2.opus"}
+{collapsible="true" collapsed-title="solve2.ndy"}
 
-#### main.opus {collapsible="true"}
+#### main.ndy {collapsible="true"}
 <code-block lang='c#'>
 // Let's call basic O(n^2) implementation as 'baseSolve' and fast O(n*log(n)) implementation as 'fastSolve'
 module solve.solve1 as baseSolve
@@ -94,28 +94,28 @@ print(resultFromFast) // Should print '5' (2, 64, 125, 654, 1243)
 </code-block>
 
 ### Configuring the project
-Now, we construct the opus-project.yml file, which defines how Opus project is structured
+Now, we construct the nadya-project.yml file, which defines how Nadya project is structured
 ```yaml
-# opus-project.yml
+# nadya-project.yml
 project:
 	name: Solve LIS
 	version: 0.1.0
 file:
 	- solve:
-        - solve1.opus
-        - solve2.opus
-	- main.opus
+        - solve1.ndy
+        - solve2.ndy
+	- main.ndy
 ```
 __project__ section includes basic information about the program.
 it includes name of the program, and its version.
 
 __file__ section exactly follows how directory is structured.
-This means root directory contains 'solve' directory, and solve directory contains two opus files. (solve1.opus and solve2.opus)
-The root directory contains main.opus which can call the program.
+This means root directory contains 'solve' directory, and solve directory contains two nadya files. (solve1.ndy and solve2.ndy)
+The root directory contains main.ndy which can call the program.
 
 One important thing to note here is file structure has import hierarchy. The file 'below' can import file 'above' current file,
 but file in 'above' cannot import file 'below'.
-For instance, solve2.opus can import solve1, but solve1 cannot import solve2. This rule holds for all files inside _file_ section.
+For instance, solve2.ndy can import solve1, but solve1 cannot import solve2. This rule holds for all files inside _file_ section.
 
 ### Executing the program
 

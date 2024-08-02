@@ -4,15 +4,15 @@ Here is simple project for example.
 
 ```yaml
 project:
-  name: opusc-example
+  name: ndc-example
   version: 0.1.0
 
 file:
   - Apple:
-      - apple.opus
+      - apple.ndy
   - Banana:
-      - banana.opus
-  - main.opus
+      - banana.ndy
+  - main.ndy
 ```
 
 ```c#  
@@ -24,7 +24,7 @@ fun bigApple() -> i32 {
 !{ apple() }
 ```
 
-{ collapsible="true" collapsed-title="Apple/apple.opus" default-state="expanded"}
+{ collapsible="true" collapsed-title="Apple/apple.ndy" default-state="expanded"}
 
 ```c#
 module Apple.apple
@@ -37,7 +37,7 @@ fun superBanana() -> i32 {
 _end_
 ```
 
-{ collapsible="true" collapsed-title="Banana/banana.opus" default-state="expanded"}
+{ collapsible="true" collapsed-title="Banana/banana.ndy" default-state="expanded"}
 
 ```c#
 module Banana.banana
@@ -51,30 +51,30 @@ fun main() -> i32 {
 _end_
 ```
 
-{ collapsible="true" collapsed-title="main.opus" default-state="expanded"}
+{ collapsible="true" collapsed-title="main.ndy" default-state="expanded"}
 
-There are **three ways** compilation in `opusc`.
+There are **three ways** compilation in `ndc`.
 
 1. single file compilation
-    - This compilation only compiles a file. In this case, you can't use any other modules without opus core library.
+    - This compilation only compiles a file. In this case, you can't use any other modules without nadya core library.
 2. full project compilation
     - This compilation compiles whole project. You can use your own other modules free, but you can't control some
       details like compiling specific file.
 3. target file compilation
     - This compilation compiles a file and others which are related to target. You can also use your own other modules
-      free, `opusc` finds appropriate files in `opus-project.yml`.
+      free, `ndc` finds appropriate files in `nadya-project.yml`.
 
 ## Single file compilation
 
-In above example, we can't compile `banana.opus` and `main.opus` because they depend on other modules which are not core
-libraries. So, now we can only compile `apple.opus` for single file compilation.
+In above example, we can't compile `banana.ndy` and `main.ndy` because they depend on other modules which are not core
+libraries. So, now we can only compile `apple.ndy` for single file compilation.
 
 ```Shell
-opusc-project$ opusc Apple/apple.opus -o Apple/apple.o --lowering-level=object
+ndc-project$ ndc Apple/apple.ndy -o Apple/apple.o --lowering-level=object
 # `-o` option is alias for `--output`.
 ```
 
-Now we got an object file of `Apple/apple.opus` and it includes function `bigApple() -> i32`. You can use this function
+Now we got an object file of `Apple/apple.ndy` and it includes function `bigApple() -> i32`. You can use this function
 by another language by linking. Below is a example which is using `C++`.
 
 ```C++
@@ -91,40 +91,40 @@ int main() {
 { collapsible="true" collapsed-title="test.cc" default-state="expanded"}
 
 ```Shell
-opusc-project$ cpp test.cc Apple/apple.o -o test.o 
-opusc-project$ ./test.o 
+ndc-project$ cpp test.cc Apple/apple.o -o test.o 
+ndc-project$ ./test.o 
 1
 ```
 
 ## Full project compilation
 
-You can give a workspace directory which includes `opus-project.yml` to `opusc`, if not, `opusc` will go up to the root
-and find it. If there were not `opus-project.yml`, it will print error message.
+You can give a workspace directory which includes `nadya-project.yml` to `ndc`, if not, `ndc` will go up to the root
+and find it. If there were not `nadya-project.yml`, it will print error message.
 
-Now, we can compile `opusc-project`.
+Now, we can compile `ndc-project`.
 
 ```Shell
-opusc-project$ opusc -w . -o opusc-project.o
+ndc-project$ ndc -w . -o ndc-project.o
 # `-w` option is alias for `--workspace` 
 ```
 
-In `main.opus`, we have **extern** `main` function, this executable file has entrypoint. So, we can executable object
+In `main.ndy`, we have **extern** `main` function, this executable file has entrypoint. So, we can executable object
 file alone.
 
 ```Shell
-opusc-project$ ./opusc-project.o
+ndc-project$ ./ndc-project.o
 6
 ```
 
 ## Target file compilation
 
-You can compile a target file. This compilation also need project file `opus-project.yml` and target file should be
-included. `opusc` will find all related modules and compile by appropriate order.
+You can compile a target file. This compilation also need project file `nadya-project.yml` and target file should be
+included. `ndc` will find all related modules and compile by appropriate order.
 
-Now we only compile `Banana/banana.opus` and make it to a shared library.
+Now we only compile `Banana/banana.ndy` and make it to a shared library.
 
 ```Shell
-opusc-project$ opusc -t Banana/banana.opus --object=shared -o banana.so
+ndc-project$ ndc -t Banana/banana.ndy --object=shared -o banana.so
 ```
 
 We can call `superBanana` function in other languages. Below one is the `C++` example.
@@ -143,28 +143,28 @@ int main() {
 Let's compile and execute object.
 
 ```Shell
-opusc-project$ cpp test2.cc banana.so -o test2.o
-opusc-project$ LD_LIBRARY_PATH=./ ./test2.o
+ndc-project$ cpp test2.cc banana.so -o test2.o
+ndc-project$ LD_LIBRARY_PATH=./ ./test2.o
 3
 ```
 
-This three ways are prepared in `opusc`. Basically, you will use these ways and add some specific options.
+This three ways are prepared in `ndc`. Basically, you will use these ways and add some specific options.
 
 ## template arguments
 
-Template arguments can be delivered by `opusc` when `target compilation`. Let's check another simple example.
+Template arguments can be delivered by `ndc` when `target compilation`. Let's check another simple example.
 
 ```yaml
 project:
-  name: opusc-example2
+  name: ndc-example2
   version: 0.1.0
 
 file:
   - ...
-  - target.opus
+  - target.ndy
   - ...
 ```
-{ collapsible="true" collapsed-title="opus-project.yml" default-state="expanded"}
+{ collapsible="true" collapsed-title="nadya-project.yml" default-state="expanded"}
 
 ```C#
 template </ manglingInfo : string />
@@ -179,7 +179,7 @@ as target, you **never get any runtime code or function**, because the function 
 You can make a caller in command line.
 
 ```Shell
-opusc-example2$ opusc -t target.opus -o target.so --function \
+ndc-example2$ ndc -t target.ndy -o target.so --function \
                 externFunc -a "{\"50\"}" --object=shared
 # This option takes a name of function.
 

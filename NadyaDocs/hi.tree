@@ -3,18 +3,16 @@
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
 
 <instance-profile id="hi"
-                  name="Opus"
+                  name="Nadya"
                   start-page="Introduction.md">
 
     <toc-element topic="Introduction.md">
         <toc-element topic="Recommended-conding-conventions.md"/>
-        <toc-element topic="Executable.md">
-            <toc-element topic="Opusc.md">
-                <toc-element topic="Opusc-Example.md"></toc-element>
-                <toc-element topic="Opusc-Command-Line.md"></toc-element>
-                <toc-element topic="Opusc-Cross-Compilation.md"></toc-element>
+            <toc-element topic="ndc.md">
+                <toc-element topic="ndc-Example.md"></toc-element>
+                <toc-element topic="ndc-Command-Line.md"></toc-element>
+                <toc-element topic="ndc-Cross-Compilation.md"></toc-element>
             </toc-element>
-        </toc-element>
         <toc-element topic="Expression-semantics.md">
             <toc-element topic="Type-expressions.md"/>
             <toc-element topic="Type-system.md"/>

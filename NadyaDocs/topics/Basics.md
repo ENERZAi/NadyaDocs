@@ -1,6 +1,6 @@
 # Basics
 
-This page describes collection of basic building blocks for creating opus program. For each section,
+This page describes collection of basic building blocks for creating nadya program. For each section,
 link to detailed description is stated below.
 
 ## Modules {collapsible="true"}
@@ -8,7 +8,7 @@ Modules defined from another file, or core library module can be imported by 'mo
 at the beginning of the source file.
 
 Module allows programmers to reuse repeated implementations, separate source files
-and opens way to develop structured program using Opus.
+and opens way to develop structured program using Nadya.
 
 <code-block lang="c#">
 module core.List.List as list // import module 'list'
@@ -25,7 +25,7 @@ Op_Cons (1,Op_Cons (2,Op_Cons (3,Op_Empty )))
 
 
 ## Functions {collapsible="true"}
-Functions in opus can be defined using following syntax
+Functions in nadya can be defined using following syntax
 
 1. Function definition without template
 ```
@@ -170,7 +170,7 @@ __Program output__
 ```
 
 ## References {collapsible="true"}
-'&' symbol in opus means 'reference'. Reference allows one value to point to contents of another value. 
+'&' symbol in nadya means 'reference'. Reference allows one value to point to contents of another value. 
 This lets programmers to give different name to same data. Modification to the referenced value
 will affect all symbols pointing to modified data.
 
@@ -198,10 +198,10 @@ let mut valueRef = &(value + 3) // error: Can only reference from identifier or 
 
 __Program output__
 ```Bash
-./example.opus:30:23: error: Can only reference from identifier or load expression
+./example.ndy:30:23: error: Can only reference from identifier or load expression
 let mut valueRef = &(value + 3)
                       ^
-Opus project compilation failed. You got 1 error
+Nadya project compilation failed. You got 1 error
 ```
 
 Note that immutable values cannot be bound as reference to mutable let binding and vice-versa.

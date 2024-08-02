@@ -1,10 +1,10 @@
 # FAQ
 
-## Opus Syntax
+## Nadya Syntax
 
 ### 1. compile time list to runtime tuple & tuple type
 
-`opus` support `rtTuple` and `rtTupleType`. You can use this feature directly like below.
+`nadya` support `rtTuple` and `rtTupleType`. You can use this feature directly like below.
 
 ```C#
 template </ tupType : rtType />

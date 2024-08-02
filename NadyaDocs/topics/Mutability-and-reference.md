@@ -3,7 +3,7 @@
 ## Mutability
 Mutability allows programmers to mutate values after it was initialized. Using this property, users can extend their code easier than before.
 
-To minimize potential human-errors caused by mutable values, opus treats all values as immutable unless value was initialized with 'let mut'.
+To minimize potential human-errors caused by mutable values, nadya treats all values as immutable unless value was initialized with 'let mut'.
 
 If programmer attempts to mutate any immutable value, interpreter will report ```err_store_to_immutable_value``` error.
 
@@ -16,9 +16,9 @@ print(mutableValue) // Prints '3'
 </code-block>
 
 ### Assigning the value
-Any value used in opus can be mutable and they can be assigned if they are mutable. But, there is one thing that must be kept in mind.
+Any value used in nadya can be mutable and they can be assigned if they are mutable. But, there is one thing that must be kept in mind.
 **Destination value and original value must have compatible type.**
-Opus cannot assign to value that has different type (for example, we can't assign string to integer).
+Nadya cannot assign to value that has different type (for example, we can't assign string to integer).
 
 <code-block lang='c#'>
 let mut dstValue = (3, 5)
@@ -29,7 +29,7 @@ dstValue &lt;- (1, 2) // Ok. Now, dstValue will be (1, 2)
 ## Reference
 Reference allows one value to point to contents of another value. This lets programmers to give different name, create sub-tensor without copying the value.
 
-In Opus values can be divided into two categories. l-value and r-value. l-value are values stored in the environment while r-value are values that are temporary and can be destructed afterwards by garbage collector.
+In Nadya values can be divided into two categories. l-value and r-value. l-value are values stored in the environment while r-value are values that are temporary and can be destructed afterwards by garbage collector.
 
 To reference some value, we must reference l-values. Therefore, interpreter must check whether value given inside is l-value or r-value.
 
@@ -87,7 +87,7 @@ foo &lt;| argRef // This will deep copy the argRef, decoupling with 'arg'
 
 
 ## Passing arguments to function parameters
-In opus, values can be passed to functions in multiple ways. This contains passing values as mutable or constant, or reference or non-reference.
+In nadya, values can be passed to functions in multiple ways. This contains passing values as mutable or constant, or reference or non-reference.
 Following is the rule for matching function argument to parameters.
 
 **Rules**

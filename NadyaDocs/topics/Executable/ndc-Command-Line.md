@@ -4,7 +4,7 @@
 
 - `--version`
 
-  Print version of `opusc`.
+  Print version of `ndc`.
 
 - `--help, -h`
 
@@ -36,14 +36,14 @@
 
 - `--lowering-level=<level>`
 
-  Lowering level ( `compiletime`, `runtime`, `opus-dialect`, `llvm-dialect`, `llvmir`, `object`, `final` -> default)
+  Lowering level ( `compiletime`, `runtime`, `nadya-dialect`, `llvm-dialect`, `llvmir`, `object`, `final` -> default)
   This option
   is only for `--lowering-level=final`
 
 - `--ll=<uint>`
 
   Alias for lowering
-  level. (`0=compiletime`, `1=runtime`, `2=opus-dialect`, `3=llvm-dialect`, `4=llvmir`, `5=object`, `6=final`)
+  level. (`0=compiletime`, `1=runtime`, `2=nadya-dialect`, `3=llvm-dialect`, `4=llvmir`, `5=object`, `6=final`)
 
 - `--rtlib=<copiler runtime library>`
 
@@ -62,8 +62,8 @@
 
 - `--print-log=<value>`
 
-  Print internal task and execution of `opusc`. If `value` were `stderr/stdout`, print log to stderr/stdout, or not,
-  print to `<value>` file. If the `<value>` were not appropriate, `opusc` treat this value to `stdout`
+  Print internal task and execution of `ndc`. If `value` were `stderr/stdout`, print log to stderr/stdout, or not,
+  print to `<value>` file. If the `<value>` were not appropriate, `ndc` treat this value to `stdout`
 
 - `--verbose, -v`
 
@@ -92,29 +92,29 @@
 
 - `-fopt-vectorize-size=<uint>`
 
-  Make `opus-opt` vectorize to size `<uint>`. This priority is higher than `--cpu` or x86 instruction options
+  Make `nadya-opt` vectorize to size `<uint>`. This priority is higher than `--cpu` or x86 instruction options
   like `-mavx512f`, `-mavx`, etc... .
 
 - `fopt-stack-threshold=<uint>`
 
-  Make `opus-opt` change stack threshold size to `<uint>`
+  Make `nadya-opt` change stack threshold size to `<uint>`
 
 - `fopt-full-pass="<pass1> <pass2> ..."`
 
-  Ignore default `opus-opt` pass and replace to given pass.
+  Ignore default `nadya-opt` pass and replace to given pass.
 
 - `-fpic`, `-fPIC`
 
   Choose reallocation model
 
-- `-fopci-path=<path to opci>`, `-fopus-opt-path=<path to opus-opt>`, `-fmlir-translate-path=<path to mlir-translate>`, `-fclang-path=<path to clang>`
+- `-fopci-path=<path to opci>`, `-fnadya-opt-path=<path to nadya-opt>`, `-fmlir-translate-path=<path to mlir-translate>`, `-fclang-path=<path to clang>`
 
   Choose tools explicitly
 
 ## Direct Options
 
-- `WClang,<arg1>,<arg2>,...` : Pass options to clang internally. `opusc` doesn't check any problem in the arguments.
-- `WLinker,<arg1>,<arg2>,...` : Pass options to linker internally. `opusc` doesn't check any problem in the arguments.
+- `WClang,<arg1>,<arg2>,...` : Pass options to clang internally. `ndc` doesn't check any problem in the arguments.
+- `WLinker,<arg1>,<arg2>,...` : Pass options to linker internally. `ndc` doesn't check any problem in the arguments.
 
 ## Target option
 
@@ -125,7 +125,7 @@
 - `-mcpu=<cpu>`
 
   Target cpu. This option will emit error when `--triple` architecture is not `x86` or be ignored when instruction sets
-  are defined by user. This option will not be delivered to `clang`, `opusc` analyze it and use it to vectorize or
+  are defined by user. This option will not be delivered to `clang`, `ndc` analyze it and use it to vectorize or
   choose instruction sets. However, the program which is compiled by `-mcpu` option can't be executed in other device.
 
     - available cpus
@@ -148,7 +148,7 @@
     - other instructions
         - `-msha`, `-maes`, `-mpclmul`, `-mclflushopt`, `-mclwb`, `-mfsgsbase`, `-mptwrite`, `-mrdrnd`, `-mpconfig`, `-mwbnoinvd`, `-mprfchw`, `-mrdpid`, `-mprefetchwt1`, `-mrdseed`, `-msgx`, `-mlwp`, `-mpopcnt`, `-madx`, `-mbmi`, `-mbmi2`, `-mlzcnt`, `-mfxsr`, `-mxsave`, `-mxsaveopt`, `-mxsavec`, `-mxsaves`, `-mrtm`, `-mtbm`, `-mmwaitx`, `-mclzero`, `-mpku`, `-mgfni`, `-mvaes`, `-mwaitpkg`, `-mvpclmulqdq`, `-mmovdiri`, `-mmovdir64b`, `-mcldemote`, `-msahf`, `-mrdpru`, `-minvpcid`, `-mshstk`, `-mkl`, `-menqcmd`, `-muintr`, `-mserialize`, `-mtsxldtrk`, `-mamx-bf16`, `-mamx-tile`, `-mamx-int8`, `-mamx-fp16`, `-mamx-complex`, `-msha512`, `-msm3`, `-msm4`, `-mraoint`, `-mcmpccxadd`, `-mprefetchi`, `-mwidekl`
 
-  Enabling instruction in opus compilation. If these option are defined and target architecture is `x86`, `--cpu`
+  Enabling instruction in nadya compilation. If these option are defined and target architecture is `x86`, `--cpu`
   options are ignored, so in this case, you need to describe instruction sets specifically.
 
   Some instruction sets are corresponded to vectorize size. You can check the size above of instruction options. But
@@ -160,7 +160,7 @@
 - `--sysroot=<path>` : system root for cross compilation
 - `-mcpu=<cpu>` :
 
-  Target cpu. This option will emit error when `--triple` architecture is not `arm`, `aarch64`. `opusc` analyze it and
+  Target cpu. This option will emit error when `--triple` architecture is not `arm`, `aarch64`. `ndc` analyze it and
   use it to vectorize or choose instruction sets. However, the program which is compiled by `-mcpu` option can't be
   executed in other device.
 
@@ -169,8 +169,8 @@
 
 - `-march=<arch(+feature1+feature2...)?>` :
 
-  Specify explicitly arm instruction sets version and several features. `opusc` can handle architectures and features
-  below. If `-march` were not matched to `-mcpu`, `opusc` will generate a error.
+  Specify explicitly arm instruction sets version and several features. `ndc` can handle architectures and features
+  below. If `-march` were not matched to `-mcpu`, `ndc` will generate a error.
 
     - **armv4t**
     - **armv5t**
@@ -242,6 +242,6 @@
 
     - `mandroid-clang=<path to clang>`
 
-  For android target, `opusc` requires clang which is built for android cross compilation and usually offered in
+  For android target, `ndc` requires clang which is built for android cross compilation and usually offered in
   [**Android NDK** packages](https://developer.android.com/ndk?hl=ko). Also, you can use `-fclang-path=<path to clang>`
-  instead of this option, but `opusc` can't guarantee that there are not problem.  
+  instead of this option, but `ndc` can't guarantee that there are not problem.  
