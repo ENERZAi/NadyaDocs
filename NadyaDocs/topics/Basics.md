@@ -93,7 +93,7 @@ Here are real-world use case for defining simple function without any template s
                 if(opType == "add") {
                     !{
                         tensorA + tensorB
-                    }ted
+                    }
                 } else if(opType == "sub") {
                     !{
                         tensorA - tensorB
